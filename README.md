@@ -10,7 +10,9 @@ A mobile website that helps the user post a tweet with relevant hashtags and pho
 ## What's Under the Hood
 
 ### Technologies Used
-HTML, CSS, Python, Flask
+Code: HTML, CSS, Python, JavaScript
+Framework: Flask
+APIs: Flickr, Bit.ly, Twitter
 
 ### Browser Support
 Safari 6.0.1, Chrome 21.0.1180.89
