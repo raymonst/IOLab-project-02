@@ -49,9 +49,9 @@ def get_photo_urls(user,tags):
 	for photo in photo_list['photos']['photo']:
 		ids.append(photo['id'])
 	for pid in ids:
-		item = get_photo_byid(pid)['sizes']['size'][0]
-		thumbnail_url = item['url']
-		full_url = item['source']
+		pdata = get_photo_byid(pid)['sizes']['size']
+		thumbnail_url = pdata[0]['source']
+		full_url = pdata[len(pdata)-1]['url']
 		result_list += [{'full':full_url,'thumb':thumbnail_url}]
 	return(json.dumps(result_list))
 	
@@ -99,5 +99,5 @@ def call_api(url,params):
 if __name__ == '__main__':
         app.debug = True
         port = int(os.environ.get('PORT', 5000))
-        app.run(host='0.0.0.0', port=port)
-	
+        app.run(host='0.0.0.0', port=port)   #heroku
+	#app.run()                           #for running locally
