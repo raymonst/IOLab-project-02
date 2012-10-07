@@ -3,6 +3,7 @@ import json
 from flask import Flask,jsonify,request
 app = Flask(__name__)
 
+#routes -------------------------------------------------------------------
 @app.route('/photos')
 def get_photos():
 	user = ''
@@ -13,12 +14,47 @@ def get_photos():
 		tags = request.args['tags']
 	if user is '' and tags is '':
 		return 'error: must supply either user, tags, or both'
+	urls = get_photo_urls(user,tags)
+	return(urls)
+	
+@app.route('/shorten')
+def get_short_url():
+	long_url = ''
+	if 'url' in request.args:
+		long_url = request.args['url']
+	else:
+		return 'error: must supply url to shorten'
+	url = 'https://api-ssl.bitly.com/v3/shorten'
+	u = 'iolabproject'
+	k = 'R_27b34f4c5bb5326cb5c0d2e482adeb19'
+	params = {
+	'longUrl': long_url,
+	'login': u,
+	'apiKey': k,
+	'domain':'bit.ly'
+	}
+	shorturl = call_api(url,params)['data']['url']
+	return shorturl
+	
+#helper functons -------------------------------------------------------------------
+def get_photo_urls(user,tags):
+	photo_list = []
+	ids = []
+	result_list = []
 	if user is '':
-		return jsonify(get_photos(tags,''))
+		photo_list = get_photo_list(tags,'')
 	else:
 		id = get_user_id(user)
-		return jsonify(get_photos(tags, id))
-		
+		photo_list = get_photo_list(tags, id)
+	for photo in photo_list['photos']['photo']:
+		ids.append(photo['id'])
+	for pid in ids:
+		item = get_photo_byid(pid)['sizes']['size'][0]
+		thumbnail_url = item['url']
+		full_url = item['source']
+		result_list += [{'full':full_url,'thumb':thumbnail_url}]
+	return(json.dumps(result_list))
+	
 def get_user_id(user):
 	url = 'http://api.flickr.com/services/rest/'
 	params = { 'api_key' :'d99a583f0b168b27152d3b67bf01b0dc',
@@ -28,15 +64,14 @@ def get_user_id(user):
 	'nojsoncallback': 1 }
 	id = call_api(url,params)['user']['id']
 	return id
-
-def get_photos(tags, id):
+		
+def get_photo_list(tags, id):
 	url = 'http://api.flickr.com/services/rest/'
 	params = { 'api_key' :'d99a583f0b168b27152d3b67bf01b0dc',
 	'content_type':1,
 	'user_id': id,
 	'extras':'tags',
 	'method': 'flickr.photos.search',
-	'tags' : tags,
 	'sort': 'date-posted-desc',
 	'media': 'photos',
 	'format': 'json',
@@ -45,6 +80,16 @@ def get_photos(tags, id):
 	photo_list = call_api(url,params)
 	return photo_list
 
+def get_photo_byid(id):
+	url = 'http://api.flickr.com/services/rest/'
+	params = { 'api_key' :'d99a583f0b168b27152d3b67bf01b0dc',
+	'method' : 'flickr.photos.getSizes',
+	'photo_id' : id,
+	'format' : "json",
+	'nojsoncallback' : 1 }
+	photo = call_api(url,params)
+	return photo
+	
 def call_api(url,params):
 	data = urllib.urlencode(params)
 	req = urllib2.Request(url, data)
