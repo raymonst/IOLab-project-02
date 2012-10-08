@@ -15,6 +15,7 @@ def get_photos():
 	if user is '' and tags is '':
 		return 'error: must supply either user, tags, or both'
 	urls = get_photo_urls(user,tags)
+	resp = Response(response=urls, status=200, mimetype="application/json")
 	return(urls)
 	
 @app.route('/shorten')
@@ -91,10 +92,9 @@ def get_photo_byid(id):
 	return photo
 	
 def call_api(url,params):
-	data = urllib.urlencode(params)
-	req = urllib2.Request(url, data)
-	result = json.loads(urllib2.urlopen(req).read())   #returns a Python dict of the JSON from Flickr
-	return result
+	url = url
+	result = urllib.urlopen(url)   #returns a Python dict of the JSON from Indeed
+	return (str(result))
 
 if __name__ == '__main__':
         app.debug = True
