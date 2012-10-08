@@ -6,7 +6,7 @@ app = Flask(__name__)
 #routes -------------------------------------------------------------------
 @app.route('/')
 def index():
-	return render_template('index.html')
+	return render_template('/templates/index.html')
 		
 @app.route('/photos')
 def get_photos():
