@@ -1,9 +1,13 @@
 import urllib,urllib2,os
 import json
-from flask import Flask,jsonify,request
+from flask import Flask,jsonify,request,render_template
 app = Flask(__name__)
 
 #routes -------------------------------------------------------------------
+@app.route('/')
+def index():
+	return render_template('index.html')
+		
 @app.route('/photos')
 def get_photos():
 	user = ''
