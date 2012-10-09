@@ -1,6 +1,6 @@
 import urllib,urllib2,os
 import json
-from flask import Flask,jsonify,request,render_template
+from flask import Flask,request,render_template,Response
 app = Flask(__name__)
 
 #routes -------------------------------------------------------------------
@@ -20,7 +20,7 @@ def get_photos():
 		return 'error: must supply either user, tags, or both'
 	urls = get_photo_urls(user,tags)
 	resp = Response(response=urls, status=200, mimetype="application/json")
-	return(urls)
+	return(resp)
 	
 @app.route('/shorten')
 def get_short_url():
@@ -96,9 +96,10 @@ def get_photo_byid(id):
 	return photo
 	
 def call_api(url,params):
-	url = url
-	result = urllib.urlopen(url)   #returns a Python dict of the JSON from Indeed
-	return (str(result))
+	data = urllib.urlencode(params)
+        req = urllib2.Request(url, data)
+        result = json.loads(urllib2.urlopen(req).read())   #returns a Python dict of the JSON from Flickr
+        return result
 
 if __name__ == '__main__':
         app.debug = True
