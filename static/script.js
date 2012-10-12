@@ -57,8 +57,9 @@ var tweet = {
 
     post : function() {
     	$("#tweet-post").on("click", function() {
-	    	console.log("test");
-		    return false;
+	    	$("#tweet-preview").load("https://twitter.com/intent/tweet?text=");
+	    	alert("x");
+	    	return false;
     	});
     }
 	
