@@ -2,6 +2,10 @@ Metatweet
 ================
 A mobile website that helps the user post a tweet with relevant hashtags and photos.
 
+## Installation ##
+heroku config:add TWITTER_CONSUMER_TOKEN='your token here'
+heroku config:add TWITTER_CONSUMER_SECRET='your secret here'
+
 ## Project Team and Roles
 * [Kate Rushton](http://krushton.com) - Flickr API, Bit.ly API
 * [Raymon Sutedjo-The]() -- 

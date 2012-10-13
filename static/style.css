@@ -69,3 +69,29 @@ transition: background-color .5s;padding:15px 20px 25px 20px;margin:0 0 30px 0;}
 strong											    {font-weight:bold;}
 em													{font-style:italic;}
 .cb													{clear:both;}
+.notification {
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fde073;
+    text-align: center;
+    line-height: 2.5;
+    overflow: hidden; 
+    -webkit-box-shadow: 0 0 5px black;
+    -moz-box-shadow:    0 0 5px black;
+    box-shadow:         0 0 5px black;
+}
+#main {
+    float: left;
+    width: 550px;
+}
+#tweets {
+    float: right;
+    width: 200px;
+}
+.tweet {
+    padding: 10px;
+}
+
