@@ -3,11 +3,12 @@
 
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <!-- 	<link rel="stylesheet" media="screen and (max-device-width: 480px)" href="../static/style.css" /> -->
-	<link rel="stylesheet" media="screen" href="../static/style.css" />
-	<link href='http://fonts.googleapis.com/css?family=Prata' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="../static/jquery-1.8.1.min.js"></script>
-	<script type="text/javascript" src="../static/script.js"></script>
+	<link rel="stylesheet" media="screen" href="../static/css/style.css" />
+	<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="../static/js/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/script.js"></script>
 </head>
 
 <body>
@@ -18,36 +19,61 @@
     </div>
 
 	<div id="container">        
-        <h1>Tweet Friend</h1>
-        <div id="main">
-    		<div class="section">
-    			<h2>Write your tweet</h2>
-    			<textarea id="tweet-main"></textarea>
-    		</div>
+		<img src="../static/images/logo.png" alt="metatweet" id="logo">
+        <h1>metatweet</h1>
+        
+    	<div class="section" id="section-tweet">
+    	    <div class="c-01">
+	        	<h2>Your Tweet</h2>
+	        	<span id="tweet-character-count">140</span>
+    	    </div>
+    	    <div class="c-02">
+	        	<textarea id="tweet-main"></textarea>
+    	    </div>
+    	</div>
 
-    		<div class="section">
-    			<h2>Find related tags</h2>
-    			<a href="#" id="tweet-find-tags">find</a>
-    			<div id="tweet-tags">
-    				<a href="#">#tag-one</a> <a href="#">#tag-two</a>
-    			</div>
-    		</div>
+    	<div class="section" id="related">
+    	
+    	    <div class="section">
+    	    	<div class="c-01">
+	        		<h2>Related Tags</h2>
+    	    	</div>
+    	    	<div class="c-02">
+	        		<a href="#" id="tweet-find-tags">find</a>
+	        		<div id="tweet-tags">
+	        			<div class="loader"></div>
+	        			<a href="#">#tagone</a> <a href="#">#tagtwo</a> <a href="#">#tagthree</a> <a href="#">#tagfour</a> <a href="#">#tagfive</a> <a href="#">#tagsix</a> <a href="#">#tagseven</a> <a href="#">#tageight</a>
+	        		</div>
+    	    	</div>
+    	    </div>
+    	    
+    	    <div class="section">
 
-    		<div class="section">
-    			<h2>Find related images</h2>
-    			<a href="#" id="tweet-find-images">find</a>
-    			<div id="tweet-images">
-    				<a href="#">http://img-one.jpg</a> <a href="#">http://img-two.jpg</a>
-    			</div>
-    		</div>
+    	    	<div class="c-01">
+	        		<h2>Related Images</h2>
+    	    	</div>
+    	    	<div class="c-02">
+	        		<a href="#" id="tweet-find-images">find</a>
+		    
+	        		<div id="tweet-images">
+	        			<div class="loader"></div>
+	        		</div>
+		    	
+<!--
+	        		<div id="tweet-images" style="">
+	        			<div class="loader" style="display: none; "></div>
+	        			<a href="http://www.flickr.com/photos/stone_222/8084611385/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8195/8084611385_1fd43d1b45_s.jpg"></a><a href="http://www.flickr.com/photos/176dill/8084585012/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8329/8084585012_56bcf09b3b_s.jpg"></a><a href="http://www.flickr.com/photos/docnovak/8084593704/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8323/8084593704_ed84094af2_s.jpg"></a><a href="http://www.flickr.com/photos/willowtreeshop/8084622905/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8326/8084622905_5fcb25eda9_s.jpg"></a><a href="http://www.flickr.com/photos/aufish1998/8084622609/sizes/k/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8190/8084622609_2165cfa438_s.jpg"></a><a href="http://www.flickr.com/photos/mark_allan/8084598260/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8185/8084598260_89fb0f48b8_s.jpg"></a><a href="http://www.flickr.com/photos/shannon_tompkins/8084613425/sizes/o/" class="item" style="display: inline; "><img src="http://farm9.staticflickr.com/8195/8084613425_18a655e6d7_s.jpg"></a><a href="http://www.flickr.com/photos/alanfletcher/8084617264/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8188/8084617264_af05d245f7_s.jpg"></a><a href="http://www.flickr.com/photos/stonecheng/8084623137/sizes/l/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8056/8084623137_d431340c62_s.jpg"></a><a href="http://www.flickr.com/photos/10702215@N03/8084616496/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8332/8084616496_22a34350cb_s.jpg"></a><a href="http://www.flickr.com/photos/cowenrock/8084622050/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8196/8084622050_9db6526579_s.jpg"></a><a href="http://www.flickr.com/photos/chefelf/8084546327/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8047/8084546327_59d4f4b10b_s.jpg"></a><a href="http://www.flickr.com/photos/45041658@N02/8084621777/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8047/8084621777_6d13156f49_s.jpg"></a><a href="http://www.flickr.com/photos/73387159@N05/8084611480/sizes/k/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8056/8084611480_34d77d8f12_s.jpg"></a><a href="http://www.flickr.com/photos/ohsfootball/8084618529/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8466/8084618529_830dfdecf1_s.jpg"></a><a href="http://www.flickr.com/photos/50760911@N05/8084600786/sizes/h/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8463/8084600786_ce70e30629_s.jpg"></a><a href="http://www.flickr.com/photos/hergan_family/8084620993/sizes/o/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8474/8084620993_1ae6262701_s.jpg"></a><a href="http://www.flickr.com/photos/markhulbert/8084613011/sizes/k/" class="item" style="display: inline; opacity: 1; "><img src="http://farm9.staticflickr.com/8191/8084613011_4afabbe537_s.jpg"></a><a href="http://www.flickr.com/photos/mark_allan/8084593356/sizes/o/" class="item" style="display: inline; "><img src="http://farm9.staticflickr.com/8190/8084593356_fbd81698dc_s.jpg"></a><a href="http://www.flickr.com/photos/stickyheart/8084610418/sizes/k/" class="item" style="display: inline; "><img src="http://farm9.staticflickr.com/8195/8084610418_2963eda647_s.jpg"></a>
+	        		</div>
+-->
+		    
+    	    	</div>
+    	    
+    	    </div>
+    	    
+    	</div>
 
-    		<a href="https://twitter.com/intent/tweet?text=" target="_blank" id="tweet-post">POST</a>
-
-    		<div id="tweet-preview">
-
-    		</div>
+    	<a href="https://twitter.com/intent/tweet?text=" target="_blank" id="tweet-post">POST</a>
              
-        </div>
         <div id="tweets">
             <h3>Recent Tweets</h3>
             {% for t in tweets %}
