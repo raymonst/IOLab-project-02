@@ -1,4 +1,5 @@
 import os
+import json
 from flask import (
     Flask,
     Response,
@@ -76,6 +77,34 @@ def request_access():
 
     session['auth'] = auth
     return redirect(url_for('main'))
+
+@app.route("/update_status")
+def update_status():
+    auth = session.get('auth')
+    api = tweepy.API(auth)
+
+    tweet_id = None
+    status = None
+    success = False
+    try:
+        response = api.update_status(request.args.get('m'))
+        tweet_id = response.id
+    except tweepy.TweepError, e:
+        status = str(e)
+    else:
+        success = True
+
+    # tweet_id can be used in the following URL to fetch details:
+    # https://api.twitter.com/1/statuses/show/257274356126863360.json
+    return Response(
+        response=json.dumps({
+            'id': tweet_id,
+            'success': success,
+            'status': status,
+        }),
+        status=200,
+        mimetype='application/json',
+    )
 
 @app.route("/hashtags")
 def get_hashtags():
