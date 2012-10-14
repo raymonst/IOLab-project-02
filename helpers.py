@@ -1,7 +1,19 @@
 import os
+import re
 import urllib
 import urllib2
 import json
+
+from collections import Counter
+
+def get_hashtags_from_search(results):
+    """Extract hashtags from Tweepy search results and tally the number
+    of times each tag occurs
+    """
+    hashtags = []
+    for result in results:
+        hashtags += re.findall(r"#(\w+)", result.text)
+    return json.dumps(Counter(hashtags))
 
 def get_photo_urls(user, tags):
     photo_list = []

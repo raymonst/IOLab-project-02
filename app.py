@@ -12,7 +12,7 @@ from flask import (
 )
 import tweepy
 
-from helpers import get_photo_urls, call_api
+from helpers import get_photo_urls, call_api, get_hashtags_from_search
 
 app = Flask(__name__)
 app.secret_key = '9gb1krq^_@s&*)qz03^jcfl4w+tle660s$z1#mtemu5b(m=$fudn##@'
@@ -31,7 +31,6 @@ BITLY_KEY = 'R_27b34f4c5bb5326cb5c0d2e482adeb19'
 
 @app.route("/")
 def request_token():
-    print os.path.join(request.url_root, TWITTER_CALLBACK_URL)
     auth = tweepy.OAuthHandler(
         TWITTER_CONSUMER_TOKEN,
         TWITTER_CONSUMER_SECRET,
@@ -48,6 +47,16 @@ def request_token():
         return abort(401)
 
     return redirect(redirect_url)
+
+@app.route('/main')
+def main():
+    auth = session.get('auth')
+    api = tweepy.API(auth)
+
+    return render_template('index.html',
+        user=api.me(),
+        tweets=api.user_timeline(),
+    )
 
 @app.route("/verify")
 def request_access():
@@ -68,15 +77,19 @@ def request_access():
     session['auth'] = auth
     return redirect(url_for('main'))
 
-
-@app.route('/main')
-def main():
+@app.route("/hashtags")
+def get_hashtags():
     auth = session.get('auth')
     api = tweepy.API(auth)
 
-    return render_template('index.html',
-        user=api.me(),
-        tweets=api.user_timeline(),
+    query = request.args.get('q')
+    num_results = request.args.get('num_results', 100)
+    results = api.search(query, rpp=num_results)
+    hashtags = get_hashtags_from_search(results)
+    return Response(
+        response=hashtags,
+        status=200,
+        mimetype='application/json',
     )
 
 @app.route('/photos')
