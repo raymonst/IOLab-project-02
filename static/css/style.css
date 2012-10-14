@@ -106,16 +106,16 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 @media screen and (max-width:480px) {
 body 												{background: url(../images/bg-s.png) 0 0 repeat-x #c3d9e6; font-size:.75em;}
 #logo												{height:50px; margin:0 0 20px 0; width:auto;}
-#container 											{width:320px;}
+#container 											{padding:0 10px 40px 10px; width:300px;}
 #related 											{margin:0 0 30px 0;}
-.section 											{margin:0 0 20px 0; padding:5px 10px 10px 10px; width:260px;}
-.section .c-01			 							{width:260px;}
-.section .c-02			 							{width:260px;}
-.section .section 		 							{width:260px;}
-.section .section .c-01 		 					{width:260px;}
-.section .section .c-02 		 					{width:260px;}
+.section 											{margin:0 0 20px 0; padding:5px 10px 10px 10px; width:280px;}
+.section .c-01			 							{width:280px;}
+.section .c-02			 							{width:280px;}
+.section .section 		 							{width:280px;}
+.section .section .c-01 		 					{width:280px;}
+.section .section .c-02 		 					{width:280px;}
 #tweet-character-count								{font-size:1.5em;}
-textarea											{height:100px; width:250px;}
+textarea											{height:100px; width:270px;}
 													}
 
 @media screen and (min-width:480px) and (max-width:800px) {
