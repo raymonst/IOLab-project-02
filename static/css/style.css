@@ -130,7 +130,7 @@ textarea	 										{height:100px; width:350px;}
 													}
 
 @media screen and (min-width:800px) and (max-width:1024px) {
-body 												{background: url(../images/bg.png) 0 0 repeat-x, url(../images/icon-tweet.png) 5% 142px no-repeat, url(../images/icon-tags.png) 5% 326px no-repeat, url(../images/icon-photos.png) 95.5% 326px no-repeat; background-color:#c3d9e6;}
+body 												{background: url(../images/bg.png) 0 0 repeat-x, url(../images/icon-tweet.png) 5% 142px no-repeat, url(../images/icon-tags.png) 5% 331px no-repeat, url(../images/icon-photos.png) 95.5% 331px no-repeat; background-color:#c3d9e6;}
 #container 											{width:660px;}
 .section 											{width:620px;}
 .section .c-01 										{width:160px;}
