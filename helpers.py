@@ -24,6 +24,7 @@ def get_hashtags_from_search(results):
 
 def get_photo_urls(user, tags):
     photo_list = []
+    tags = ','.join(tags.split())
     if user is '':
         photo_list = get_photo_list(tags, '')
     else:
