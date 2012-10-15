@@ -88,7 +88,7 @@ def update_status():
     success = False
     try:
         response = api.update_status(request.args.get('m'))
-        tweet_id = response.id
+        tweet_id = response.id_str
     except tweepy.TweepError, e:
         status = str(e)
     else:
@@ -101,6 +101,7 @@ def update_status():
             'id': tweet_id,
             'success': success,
             'status': status,
+            'username': api.me().screen_name,
         }),
         status=200,
         mimetype='application/json',

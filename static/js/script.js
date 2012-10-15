@@ -179,7 +179,10 @@ var tweet = {
                     $("#tweet-main").val('');
                     $("#tweet-tags .item").remove();
                     $("#tweet-images .item").remove();
-                    toastr.success('<a href="https://api.twitter.com/1/statuses/show/' + data.id + '.json">view on twitter</a>', 'Tweet Successfully Posted!')
+                    var statusHref = 'https://twitter.com/' + data.username + '/status/' + data.id,
+                        statusText = 'View on Twitter',
+                        statusHeader = 'Tweet Successfully Posted!';
+                    toastr.success('<a target="_blank" href="' + statusHref + '">' + statusText + '</a>', statusHeader)
                 } else {
                     toastr.error(data.status, 'Oops, we couldn\'t post your tweet')
                 }
