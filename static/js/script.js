@@ -17,9 +17,13 @@ var tweet = {
     init : function() {
     	$("#tweet-main").keyup(function() {
     		tweet.updateCount();
-    		tweet.updateLink();
     		tweet.getTagsAndImages();
     	}).mouseup(tweet.getTagsAndImages);
+
+        $("#tweet-post").click(function(){
+            tweet.updateStatus();
+            return false;
+        })
     },
 
     getTagsAndImages : function() {
@@ -35,11 +39,11 @@ var tweet = {
         $("#tweet-tags .loader").fadeIn(300);
         $.ajax({
     		type: "GET",
-    		url: "/hashtags?q="+selection,
+    		url: "/hashtags?q=" + encodeURIComponent(selection),
     		contentType: "application/json",
     		success: function(data) {
     		    $.each(data, function() {
-    		    	$('#tweet-tags').prepend('<a href="' + this[0] + '" class="item">' + this[0] + ' (' + this[1] + ')</a><br />');
+    		    	$('#tweet-tags').prepend('<a href="' + this[0] + '" class="item">' + this[0] + ' (' + this[1] + ')</a>');
     		    });
     		    $("#tweet-tags .loader").hide();
     		    $("#tweet-tags .item").each(function(i) {
@@ -80,7 +84,6 @@ var tweet = {
 		    	}
 				$("#tweet-main").val(newValue);
 				tweet.updateCount();
-				tweet.updateLink();
 			    return false;
 		    }
 		});
@@ -90,7 +93,7 @@ var tweet = {
 	    $("#tweet-images .loader").fadeIn(300);
         $.ajax({
     		type: "GET",
-    		url: "/photos?tags="+selection,
+    		url: "/photos?tags=" + encodeURIComponent(selection),
     		contentType: "application/json",
     		success: function(data) {
     		    $.each(data, function() {
@@ -135,7 +138,6 @@ var tweet = {
 		    	}
 				$("#tweet-main").val(newValue);
 				tweet.updateCount();
-				tweet.updateLink();
 			    return false;
 		    },
 		    mouseenter: function(self) {
@@ -167,11 +169,25 @@ var tweet = {
 	    }
     },
 
-    updateLink : function() {
-	    delay(function() {
-	    	newLink = "https://twitter.com/intent/tweet?text=" + $("#tweet-main").val().replace(/#/g, "%23");
-	        $("#tweet-post").attr("href", newLink);
-	    }, 1000);
+    updateStatus : function() {
+        $.ajax({
+    		type: "GET",
+    		url: "/update_status?m=" + encodeURIComponent($("#tweet-main").val()),
+    		contentType: "application/json",
+    		success: function(data) {
+                if(data.success) {
+                    $("#tweet-main").val('');
+                    $("#tweet-tags .item").remove();
+                    $("#tweet-images .item").remove();
+                    toastr.success('<a href="https://api.twitter.com/1/statuses/show/' + data.id + '.json">view on twitter</a>', 'Tweet Successfully Posted!')
+                } else {
+                    toastr.error(data.status, 'Oops, we couldn\'t post your tweet')
+                }
+    		},
+    		error: function(xhr, status, error) {
+                toastr.error(error, 'Oops, we couldn\'t post your tweet')
+    		}
+	    });
     }
 
 }

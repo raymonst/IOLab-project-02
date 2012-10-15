@@ -73,6 +73,7 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 	
 #related											{margin-bottom:60px;}
 
+#tweet-tags a										{display:block;}
 #tweet-tags a:hover									{background:#1f5ccc; color:#fff;}
 
 #tweet-images a										{display:block;}
@@ -116,6 +117,7 @@ body 												{background: url(../images/bg-s.png) 0 0 repeat-x #c3d9e6; font
 .section .section .c-02 		 					{width:280px;}
 #tweet-character-count								{font-size:1.5em;}
 textarea											{height:100px; width:270px;}
+.notification                                       {display: none}
 													}
 
 @media screen and (min-width:480px) and (max-width:800px) {
@@ -127,6 +129,7 @@ body 												{background: url(../images/bg.png) 0 0 repeat-x, url(../images/
 .section .section 		 							{width:360px;}
 .section .section .c-02 							{width:360px;}
 textarea	 										{height:100px; width:350px;}
+.notification                                       {display: none}
 													}
 
 @media screen and (min-width:800px) and (max-width:1024px) {
@@ -153,12 +156,13 @@ em													{font-style:italic;}
     z-index: 101;
     top: 0;
     right: 0;
-    background: #fde073;
-    text-align: center;
+    text-align: left;
     line-height: 2.5;
     overflow: hidden; 
-    width:200px;
-    height:100px;
+    width:350px;
+    color:#fff; 
+    font-size:1.25em; 
+    margin:15px 0 10px 0;
 }
 #tweets {
 	margin: 50px 0 0 0;
