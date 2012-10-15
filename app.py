@@ -13,6 +13,7 @@ from flask import (
 )
 import tweepy
 
+from sentiment import sentiment
 from helpers import get_photo_urls, call_api, get_hashtags_from_search
 
 app = Flask(__name__)
@@ -21,9 +22,6 @@ app.secret_key = '9gb1krq^_@s&*)qz03^jcfl4w+tle660s$z1#mtemu5b(m=$fudn##@'
 TWITTER_CONSUMER_TOKEN = os.environ.get('TWITTER_CONSUMER_TOKEN')
 TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
 TWITTER_CALLBACK_URL = 'verify'
-
-FLICKR_URL = 'http://api.flickr.com/services/rest/'
-FLICKR_KEY = 'd99a583f0b168b27152d3b67bf01b0dc'
 
 BITLY_URL = 'https://api-ssl.bitly.com/v3/shorten'
 BITLY_USER = 'iolabproject'
@@ -121,6 +119,17 @@ def get_hashtags():
         mimetype='application/json',
     )
 
+@app.route("/sentiment")
+def get_sentiment():
+    message = request.args.get('m')
+    return Response(
+        response=json.dumps({
+            'sentiment': sentiment(message),
+        }),
+        status=200,
+        mimetype='application/json',
+    )
+
 @app.route('/photos')
 def get_photos():
     user = ''
@@ -132,7 +141,7 @@ def get_photos():
     if user is '' and tags is '':
         return 'error: must supply either user, tags, or both'
 
-    urls = get_photo_urls(user,tags)
+    urls = get_photo_urls(user, tags)
     return Response(
         response=urls,
         status=200,

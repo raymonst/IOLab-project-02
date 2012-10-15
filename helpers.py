@@ -6,6 +6,10 @@ import json
 
 from collections import Counter
 
+FLICKR_URL = 'http://api.flickr.com/services/rest/'
+FLICKR_KEY = 'd99a583f0b168b27152d3b67bf01b0dc'
+
+
 def get_hashtags_from_search(results):
     """Extract hashtags from Tweepy search results and tally the number
     of times each tag occurs
@@ -13,7 +17,10 @@ def get_hashtags_from_search(results):
     hashtags = []
     for result in results:
         hashtags += re.findall(r"#(\w+)", result.text)
-    return json.dumps(Counter(hashtags))
+    hashtag_counts = Counter(hashtags).most_common(10)
+    # Reverse list because items will be prepended in ascending order
+    hashtag_counts.reverse()
+    return json.dumps(hashtag_counts)
 
 def get_photo_urls(user, tags):
     photo_list = []
@@ -52,7 +59,7 @@ def get_photo_list(tags, id):
         'api_key': FLICKR_KEY,
         'content_type': 1,
         'user_id': id,
-        'extras': 'tags',
+        'tags': tags,
         'method': 'flickr.photos.search',
         'sort': 'date-posted-desc',
         'media': 'photos',
@@ -63,7 +70,6 @@ def get_photo_list(tags, id):
     return call_api(FLICKR_URL, params)
 
 def get_photo_byid(id):
-    url = 'http://api.flickr.com/services/rest/'
     params = {
         'api_key' : FLICKR_KEY,
         'method': 'flickr.photos.getSizes',
