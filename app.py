@@ -22,6 +22,8 @@ app.secret_key = '9gb1krq^_@s&*)qz03^jcfl4w+tle660s$z1#mtemu5b(m=$fudn##@'
 TWITTER_CONSUMER_TOKEN = os.environ.get('TWITTER_CONSUMER_TOKEN')
 TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
 TWITTER_CALLBACK_URL = 'verify'
+TWITTER_NUM_RESULTS = 100
+TWITTER_PAGES_TO_POLL = 2
 
 BITLY_URL = 'https://api-ssl.bitly.com/v3/shorten'
 BITLY_USER = 'iolabproject'
@@ -110,8 +112,16 @@ def get_hashtags():
     api = tweepy.API(auth)
 
     query = request.args.get('q')
-    num_results = request.args.get('num_results', 100)
-    results = api.search(query, rpp=num_results)
+    num_results = request.args.get('num_results', TWITTER_NUM_RESULTS)
+    results = []
+    for i in xrange(1, TWITTER_PAGES_TO_POLL + 1):
+        results += api.search(
+            query,
+            lang="en",
+            result_type='mixed',
+            rpp=num_results,
+            page=i,
+        )
     hashtags = get_hashtags_from_search(results)
     return Response(
         response=hashtags,

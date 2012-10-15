@@ -24,23 +24,19 @@ def get_hashtags_from_search(results):
 
 def get_photo_urls(user, tags):
     photo_list = []
-    ids = []
-    result_list = []
-
     if user is '':
         photo_list = get_photo_list(tags, '')
     else:
         id = get_user_id(user)
         photo_list = get_photo_list(tags, id)
 
+    result_list = []
     for photo in photo_list['photos']['photo']:
-        ids.append(photo['id'])
-
-    for pid in ids:
-        pdata = get_photo_byid(pid)['sizes']['size']
-        thumbnail_url = pdata[0]['source']
-        full_url = pdata[len(pdata)-1]['url']
-        result_list += [{'full': full_url, 'thumb': thumbnail_url}]
+        result_list += [{
+            'id': photo['id'],
+            'full': 'http://flic.kr/p/' + base58encode(int(photo['id'])),
+            'thumb': photo.get('url_sq')
+        }]
 
     return(json.dumps(result_list))
 
@@ -60,12 +56,14 @@ def get_photo_list(tags, id):
         'content_type': 1,
         'user_id': id,
         'tags': tags,
+        'tag_mode': 'all',
         'method': 'flickr.photos.search',
-        'sort': 'date-posted-desc',
+        'sort': 'relevance',
         'media': 'photos',
         'format': 'json',
         'per_page': 20,
         'nojsoncallback': 1,
+        'extras': 'url_b,url_sq',
     }
     return call_api(FLICKR_URL, params)
 
@@ -84,3 +82,23 @@ def call_api(url, params):
     req = urllib2.Request(url, data)
     # Returns a Python dict of the JSON from Flickr
     return json.loads(urllib2.urlopen(req).read())
+
+def base58encode(num):
+    """ Returns num in a base58-encoded string for Flickr shortner"""
+
+    alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
+    base_count = len(alphabet)
+
+    encode = ''
+    if (num < 0):
+        return ''
+
+    while (num >= base_count):
+        mod = num % base_count
+        encode = alphabet[mod] + encode
+        num = num / base_count
+
+    if (num):
+        encode = alphabet[num] + encode
+
+    return encode
