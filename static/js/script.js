@@ -1,38 +1,53 @@
 //--------------------------------------------------------------------------------------------------------------
 
-var delay = (function(){
-  var timer = 0;
-  return function(callback, ms){
-    clearTimeout (timer);
-    timer = setTimeout(callback, ms);
-  };
+var delay = (function() {
+	var timer = 0;
+	return function(callback, ms) {
+		clearTimeout (timer);
+		timer = setTimeout(callback, ms);
+	};
 })();
 
 
 //--------------------------------------------------------------------------------------------------------------
+
 var selection = '';
 
 var tweet = {
 
     init : function() {
+    
     	$("#tweet-main").keyup(function() {
     		tweet.updateCount();
     		tweet.getTagsAndImages();
-    	}).mouseup(tweet.getTagsAndImages);
+    	}).mouseup(function() {
+    		tweet.getTagsAndImages();
+    	});
 
-        $("#tweet-post").click(function(){
+        $("#tweet-post").click(function() {
             tweet.updateStatus();
             return false;
         })
+        
+        tweet.seeTweets();
+        
     },
 
     getTagsAndImages : function() {
         var range = $("#tweet-main").getSelection();
-        if(range.text && range.text != selection) {
+        if (range.text && range.text != selection) {
             selection = range.text;
             tweet.tags();
             tweet.images();
         }
+    },
+
+    seeTweets : function() {
+	    $("#notification-image").mouseenter(function() {
+			$("#tweets").fadeIn(100);
+	    }).mouseleave(function() {
+			$("#tweets").fadeOut(100);
+	    });
     },
 
     tags : function(e) {
@@ -57,7 +72,7 @@ var tweet = {
     		error: function(xhr, status, error) {
     		    $('#tweet-tags').prepend('error loading tags');
     		    $("#tweet-tags .loader").fadeOut(300);
-    		}
+     		}
         });
     	$("#tweet-tags").show();
     	return false;
@@ -68,13 +83,13 @@ var tweet = {
 	    $("#tweet-tags a").on({
 		    click: function(self) {
 		    	self = $(this);
-		    	tag = self.attr('href');
+		    	tag = '#' + self.attr('href');
 		    	if (!(self.hasClass('added'))) {
 				    self.animate({
 				    	opacity: 0.2
 				    }, 100)
 				    .addClass('added');
-				    newValue = $("#tweet-main").val() + ' #' + tag;
+				    newValue = $("#tweet-main").val() + ' ' + tag;
 		    	} else {
 				    self.animate({
 				    	opacity: 1

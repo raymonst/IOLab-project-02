@@ -18,7 +18,21 @@
 <body>
 
     <div class="notification">
-        {{ user.screen_name }} <img src="{{ user.profile_image_url }}" height="20" width="20"/>
+    	<div id="notification-name">{{ user.screen_name }}</div>
+    	<div id="notification-image"><a href="#"><img src="{{ user.profile_image_url }}"/></a></div>
+    </div>
+    <div id="tweets">
+        <h3>Recent Tweets</h3>
+            <div class="tweet">Vivamus luctus elit sit amet mi.</div>
+            <div class="tweet">Vivamus luctus elit sit amet mi.</div>
+            <div class="tweet">Vivamus luctus elit sit amet mi.</div>
+            <div class="tweet">Vivamus luctus elit sit amet mi.</div>
+            <div class="tweet">Vivamus luctus elit sit amet mi.</div>
+<!--
+        {% for t in tweets %}
+            <div class="tweet">{{ t.text }}</div>
+        {% endfor %}
+-->
     </div>
 
 	<div id="container">
@@ -34,7 +48,7 @@
 	        	<textarea id="tweet-main"></textarea>
     	    </div>
     	</div>
-       <a href="#" target="_blank" id="tweet-post">POST</a>
+    	<a href="#" target="_blank" id="tweet-post">POST</a>
     	<div class="section" id="related">
 
     	    <div class="section">
@@ -61,16 +75,7 @@
     	    </div>
     	</div>
 
-
-<!--
-        <div id="tweets">
-            <h3>Recent Tweets</h3>
-            {% for t in tweets %}
-                <div class="tweet">{{ t.text }}</div>
-            {% endfor %}
-        </div>
 	</div>
--->
 
 </body>
 </html>
