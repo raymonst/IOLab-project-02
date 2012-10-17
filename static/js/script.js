@@ -64,15 +64,15 @@ var tweet = {
     		    $("#tweet-tags .item").each(function(i) {
     		        var self = $(this);
     		        setTimeout(function() {
-    		        	self.fadeIn(100);
+    		        	self.fadeIn(100).css("display","block");
     		        }, 100 * i);
     		    });
     		    tweet.tagsBehavior();
     		},
     		error: function(xhr, status, error) {
     		    $('#tweet-tags').prepend('error loading tags');
-    		    $("#tweet-tags .loader").fadeOut(300);
-     		}
+    		    $("#tweet-tags .loader").fadeOut(300);    		    
+    		}
         });
     	$("#tweet-tags").show();
     	return false;
