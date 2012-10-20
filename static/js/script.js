@@ -17,7 +17,7 @@ var tweet = {
 
 	//----------------------------------------------------------------------------------------------------------
     init : function() {
-    
+
     	$("#tweet-main").keyup(function() {
     		tweet.updateCount();
             tweet.getSearchTerm();
@@ -38,12 +38,12 @@ var tweet = {
             tweet.updateStatus();
             return false;
         })
-        
+
         tweet.seeTweets();
-        tweet.showTooltip();        
-        
+        tweet.showTooltip();
+
     },
-    
+
 	//----------------------------------------------------------------------------------------------------------
     showTooltip : function() {
 
@@ -63,29 +63,22 @@ var tweet = {
 			}, 4000);
 		});
     },
-    
+
     //----------------------------------------------------------------------------------------------------------
     getSearchTerm: function() {
 		var range = $("#tweet-main").getSelection();
-		if (range.text && range.text != selection) {
-		    selection = range.text;
-		}
-		$("#tweet-search span").text(selection);  
+		$("#tweet-search span").text(range.text);
 	},
 
 	//----------------------------------------------------------------------------------------------------------
     getTagsAndImages : function() {
-	    var range = $("#tweet-main").getSelection().text;
-	    selection = range;
-	    tweet.tags();
-	    tweet.images();
-/*
-	    if (range.text && range.text != selection) {
-	        selection = range.text;
+        // Only fetch if selected text has changed and isn't empty
+        var selectedText = $("#tweet-search span").text();
+	    if (selectedText && selectedText != selection) {
+	        selection = selectedText;
 	        tweet.tags();
 	        tweet.images();
 	    }
-*/
     },
 
 	//----------------------------------------------------------------------------------------------------------
@@ -119,7 +112,7 @@ var tweet = {
     		},
     		error: function(xhr, status, error) {
     		    $('#tweet-tags').prepend('error loading tags ');
-    		    $("#tweet-tags .loader").fadeOut(300);    		    
+    		    $("#tweet-tags .loader").fadeOut(300);
     		}
         });
     	$("#tweet-tags").show();
@@ -251,12 +244,28 @@ var tweet = {
                         statusText = 'View on Twitter',
                         statusHeader = 'Tweet Successfully Posted!';
                     toastr.success('<a target="_blank" href="' + statusHref + '">' + statusText + '</a>', statusHeader)
+                    // Delay is required here
+        			setTimeout(function() {
+        				tweet.updateTweets();
+        			}, 3000);
+                    tweet.updateCount();
                 } else {
                     toastr.error(data.status, 'Oops, we couldn\'t post your tweet')
                 }
     		},
     		error: function(xhr, status, error) {
                 toastr.error(error, 'Oops, we couldn\'t post your tweet')
+    		}
+	    });
+    },
+
+    //----------------------------------------------------------------------------------------------------------
+    updateTweets : function() {
+        $.ajax({
+    		type: "GET",
+    		url: "/tweets",
+    		success: function(text) {
+                $("#tweets-list").html(text);
     		}
 	    });
     }

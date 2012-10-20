@@ -133,7 +133,8 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 #notification-image a 								{display:block; height:48px; padding:5px; width:48px;}
 #notification-image a:hover 						{background:#274d69;}
 #tweets 											{background:#274d69; border-bottom:5px solid #e1eef6; color:#fff; display:none; line-height:1.3; padding:20px; position:absolute; right:20px; top:78px; width:260px; z-index:102;}
-.tweet 												{margin:0 0 5px 0;}
+#tweets h3 {color: #AAD9F0}
+.tweet 												{margin:0 0 15px 0;}
 
 
 
@@ -195,4 +196,25 @@ textarea											{height:150px; width:450px;}
 
 strong											    {font-weight:bold;}
 em													{font-style:italic;}
-.cb													{clear:both;}
+.cb													{clear:both;}          
+
+.toast-top-center {
+    top: 12px;
+    left: 50%;
+    margin-left: -150px;
+}
+@media all and (max-width: 240px) {
+    .toast-top-center {
+        margin-left: -54px;
+    }
+}
+@media all and (min-width: 241px) and (max-width: 320px) {
+    .toast-top-center {
+        margin-left: -64px;
+    }
+}
+@media all and (min-width: 321px) and (max-width: 480px) {
+    .toast-top-center {
+        margin-left: -96px;
+    }
+}
