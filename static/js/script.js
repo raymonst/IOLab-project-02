@@ -20,14 +20,18 @@ var tweet = {
     
     	$("#tweet-main").keyup(function() {
     		tweet.updateCount();
+            tweet.getSearchTerm();
     	}).mouseup(function() {
     		tweet.getSearchTerm();
-    	});
-    	$("#tweet-search").on("click", function() {
+    	}).select(function() {
+            tweet.getSearchTerm();
+        });
+        
+        $("#tweet-search").on("click", function() {
     		tweet.getTagsAndImages();
 	    	return false;
-    	})
-
+    	});
+        
         document.addEventListener("touchend", tweet.getSearchTerm, false);
 
         $("#tweet-post").click(function() {
