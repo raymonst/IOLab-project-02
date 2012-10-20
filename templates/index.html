@@ -26,25 +26,18 @@
     </div>
      	<div id="tweets">
      	    <h3>Recent Tweets</h3>
-     	
-<!--
-     	        <div class="tweet">Vivamus luctus elit sit amet mi.</div>
-     	        <div class="tweet">Vivamus luctus elit sit amet mi.</div>
-     	        <div class="tweet">Vivamus luctus elit sit amet mi.</div>
-     	        <div class="tweet">Vivamus luctus elit sit amet mi.</div>
-     	        <div class="tweet">Vivamus luctus elit sit amet mi.</div>
--->
-     	
-     	    {% for t in tweets %}
-     	    	<div class="tweet">{{ t.text }}</div>
-     	    {% endfor %}
+     	    <div id="tweets-list">
+         	    {% for t in tweets %}
+         	    	<div class="tweet">{{ t.text }}</div>
+         	    {% endfor %}
+            </div>
      	</div>
 
 	<div id="container">
 		<div id="content">
 			<img src="../static/images/logo.png" alt="metatweet" id="logo">
         	<h1>metatweet</h1>
-			
+
     		<div class="section" id="section-tweet">
     			<div id="tweet-tooltip"><span>Highlight a word/phrase</span> to set your search term</div>
     			<a href="#" id="tweet-search">Search tags &amp; images related to: <span></span></a>
@@ -58,7 +51,7 @@
     		</div>
     		<a href="#" target="_blank" id="tweet-post">POST</a>
     		<div class="section" id="related">
-			
+
     		    <div class="section">
     		    	<div class="c-01">
 	    	    		<h2>Related Tags</h2>
@@ -66,20 +59,12 @@
     		    	<div class="c-02">
 	    	    		<div id="tweet-tags">
 	    	    			<div class="loader"></div>
-	    	    			<a href="#" class="item">test</a>
-	    	    			<a href="#" class="item">test</a>
-	    	    			<a href="#" class="item">test</a>
-	    	    			<a href="#" class="item">test</a>
-	    	    			<a href="#" class="item">test</a>
-	    	    			<a href="#" class="item">test</a>
-	    	    			<a href="#" class="item">test</a>
-	    	    			<a href="#" class="item">test</a>
 	    	    		</div>
     		    	</div>
     		    </div>
-			
+
     		    <div class="section">
-			
+
     		    	<div class="c-01">
 	    	    		<h2>Related Images</h2>
     		    	</div>
@@ -96,4 +81,5 @@
 </body>
 </html>
 <script type="text/javascript">
+toastr.options.positionClass = 'toast-top-center';
 </script>

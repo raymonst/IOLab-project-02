@@ -1,5 +1,6 @@
 import os
 import json
+import tweepy
 from flask import (
     Flask,
     Response,
@@ -11,8 +12,6 @@ from flask import (
     request,
     render_template,
 )
-import tweepy
-
 from sentiment import sentiment
 from helpers import get_photo_urls, call_api, get_hashtags_from_search
 
@@ -52,10 +51,21 @@ def request_token():
 @app.route('/main')
 def main():
     auth = session.get('auth')
-    api = tweepy.API(auth)
+    if not auth:
+        return request_token()
 
+    api = tweepy.API(auth)
     return render_template('index.html',
         user=api.me(),
+        tweets=api.user_timeline(count=10),
+    )
+
+@app.route('/tweets')
+def tweets():
+    auth = session.get('auth')
+    api = tweepy.API(auth)
+
+    return render_template('tweets.html',
         tweets=api.user_timeline(),
     )
 
