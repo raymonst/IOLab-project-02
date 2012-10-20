@@ -19,21 +19,25 @@
 
     <div class="notification">
     	<div id="notification-name">{{ user.screen_name }}</div>
-    	<div id="notification-image"><a href="#"><img src="{{ user.profile_image_url }}"/></a></div>
-    </div>
-    <div id="tweets">
-        <h3>Recent Tweets</h3>
-            <div class="tweet">Vivamus luctus elit sit amet mi.</div>
-            <div class="tweet">Vivamus luctus elit sit amet mi.</div>
-            <div class="tweet">Vivamus luctus elit sit amet mi.</div>
-            <div class="tweet">Vivamus luctus elit sit amet mi.</div>
-            <div class="tweet">Vivamus luctus elit sit amet mi.</div>
+    	<div id="notification-image">
+    		<a href="#"><img src="{{ user.profile_image_url }}"/></a>
+     	</div>
+     	<div id="tweets">
+     	    <h3>Recent Tweets</h3>
+     	
 <!--
-        {% for t in tweets %}
-            <div class="tweet">{{ t.text }}</div>
-        {% endfor %}
+     	        <div class="tweet">Vivamus luctus elit sit amet mi.</div>
+     	        <div class="tweet">Vivamus luctus elit sit amet mi.</div>
+     	        <div class="tweet">Vivamus luctus elit sit amet mi.</div>
+     	        <div class="tweet">Vivamus luctus elit sit amet mi.</div>
+     	        <div class="tweet">Vivamus luctus elit sit amet mi.</div>
 -->
-    </div>
+     	
+     	    {% for t in tweets %}
+     	    	<div class="tweet">{{ t.text }}</div>
+     	    {% endfor %}
+     	</div>
+   </div>
 
 	<div id="container">
 		<img src="../static/images/logo.png" alt="metatweet" id="logo">

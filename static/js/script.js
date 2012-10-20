@@ -44,11 +44,11 @@ var tweet = {
 
     seeTweets : function() {
 	    $("#notification-image").mouseenter(function() {
-			$("#tweets").fadeIn(100);
+			$("#tweets").show();
 	    }).mouseleave(function() {
-			$("#tweets").fadeOut(100);
+			$("#tweets").hide();
 	    });
-    },
+   },
 
     tags : function(e) {
         $("#tweet-tags .loader").fadeIn(300);
