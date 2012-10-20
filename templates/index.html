@@ -68,10 +68,24 @@
     		    	<div class="c-01">
 	    	    		<h2>Related Images</h2>
     		    	</div>
+                   
     		    	<div class="c-02">
-	    	    		<div id="tweet-images">
-	    	    			<div class="loader"></div>
-	    	    		</div>
+                        <div class="tab active" data-target="#tweet-tab">Public Images</div>
+                        <div class="tab" data-target="#flickr-tab">My Images</div>
+                            <div id="tweet-tab" class="tab-body">
+                                <div class="loader"></div> 
+                                <div id="tweet-images">
+                                </div>
+                            </div>
+                            <div id="flickr-tab" class="tab-body">
+                                <div class="loader"></div> 
+                                <div id="flickr-images">
+                                </div>
+                                <div id="flickr-user-form">
+                                    <label>Flickr User Name</label><input type="text" id="flickr-user" value="{{ user.screen_name }}"/><a href="#" id="flickr-update">Update</a>
+                                </div>
+                            </div>
+                        </div>
     		    	</div>
     		    </div>
     		</div>

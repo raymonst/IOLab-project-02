@@ -12,7 +12,7 @@ var delay = (function() {
 //--------------------------------------------------------------------------------------------------------------
 
 var selection = '';
-
+var flickrUser = '';
 var tweet = {
 
 	//----------------------------------------------------------------------------------------------------------
@@ -27,10 +27,24 @@ var tweet = {
             tweet.getSearchTerm();
         });
         
+        
         $("#tweet-search").on("click", function() {
     		tweet.getTagsAndImages();
 	    	return false;
     	});
+        
+        
+        $('#flickr-update').click(function() {
+            tweet.getUserImages(); 
+            return false;
+        });
+        
+        $('.tab').click(function() {
+           $('.tab-body').hide();
+           $('.tab').removeClass('active');
+           $(this).addClass('active');
+           $($(this).attr('data-target')).show();
+        });
         
         document.addEventListener("touchend", tweet.getSearchTerm, false);
 
@@ -79,6 +93,17 @@ var tweet = {
 	        tweet.tags();
 	        tweet.images();
 	    }
+            
+    },
+    
+    //----------------------------------------------------------------------------------------------------------
+     getUserImages : function() {
+        // Only fetch if selected user has changed and isn't empty
+        currUser = $('#flickr-user').val();
+        if (currUser !== "" && currUser !== flickrUser) {
+            flickrUser = currUser;
+            tweet.userImages();
+        }
     },
 
 	//----------------------------------------------------------------------------------------------------------
@@ -98,6 +123,7 @@ var tweet = {
     		url: "/hashtags?q=" + encodeURIComponent(selection),
     		contentType: "application/json",
     		success: function(data) {
+                $("#tweet-tags").empty();
     		    $.each(data, function() {
     		    	$('#tweet-tags').prepend('<a href="' + this[0] + '" class="item">' + this[0] + ' (' + this[1] + ')</a>');
     		    });
@@ -148,12 +174,15 @@ var tweet = {
 
 	//----------------------------------------------------------------------------------------------------------
     images : function(e) {
+        $(".tab").css('display','inline-block');
+        $("#tweet-tab").show();
 	    $("#tweet-images .loader").fadeIn(300);
         $.ajax({
     		type: "GET",
     		url: "/photos?tags=" + encodeURIComponent(selection),
     		contentType: "application/json",
     		success: function(data) {
+                $("#tweet-images").empty();
     		    $.each(data, function() {
     		    	$('#tweet-images').prepend('<a href="' + this.full + '" class="item"><img src="' + this.thumb + '"></a>');
     		    });
@@ -171,14 +200,43 @@ var tweet = {
     		    $("#tweet-images .loader").fadeOut(300);
     		}
 	    });
-    	$("#tweet-images").show();
     	return false;
 
+    },
+    //----------------------------------------------------------------------------------------------------------
+    userImages : function(e) {
+        $(".tab").css('display','inline-block');
+        $("#flickr-images .loader").fadeIn(300);
+
+            $.ajax({
+            type: "GET",
+            url: "/photos?user=" + flickrUser,
+            contentType: "application/json",
+            success: function(data) {
+                $("#flickr-images").empty();
+                $.each(data, function() {
+                   $('#flickr-images').prepend('<a href="' + this.full + '" class="item"><img src="' + this.thumb + '"></a>');
+                });
+                $("#flickr-images .loader").hide();
+                $("#flickr-user-form").hide();
+                $("#flickr-images .item").each(function(i) {
+                    var self = $(this);
+                    setTimeout(function() {
+                        self.fadeIn(100);
+                    }, 100 * i);
+                 });
+                 tweet.imagesBehavior();
+                },
+                error: function(xhr, status, error) {
+                    $('#tweet-images').prepend('error loading images ');
+                    $("#tweet-images .loader").fadeOut(300);
+                }
+            });
     },
 
 	//----------------------------------------------------------------------------------------------------------
     imagesBehavior : function() {
-	    $("#tweet-images a").on({
+	    $(".tab-body a").on({
 		    click: function(self) {
 		    	self = $(this);
 		    	link = self.attr("href");
