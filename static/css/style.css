@@ -9,7 +9,7 @@ table{border-collapse:collapse;}
 
 /* global */
 
-body 												{background: url(../images/bg.png) 0 0 repeat-x, url(../images/icon-tweet.png) 5% 142px no-repeat, url(../images/icon-tags.png) 5% 490px no-repeat, url(../images/icon-photos.png) 95.5% 490px no-repeat; background-color:#c3d9e6; font-family:'Abel',sans-serif; font-size:1em; line-height:1.3;}
+body 												{background:url(../images/icon-twitter.png) 5% 142px no-repeat, url(../images/icon-tags.png) 5% 490px no-repeat, url(../images/icon-photos.png) 95% 490px no-repeat, url(../images/bg-texture.jpg) 0 0 repeat; background-color:#c3d9e6; font-family:'Abel',sans-serif; font-size:1em; line-height:1.3;}
 a:link,
 a:visited										    {color:#1f5ccc; text-decoration:none;}
 a:hover,
@@ -46,7 +46,13 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 
 /* container */
 
-#container											{font-size:.875em; margin:0 auto 60px; padding:0 20px 40px 20px; width:960px;}
+#container											{background:url(../images/bg.png) repeat-x; width: 100%;}
+#content											{font-size:.875em; margin:0 auto 60px; padding:0 20px; width:960px;}
+
+
+
+/* sections */
+
 .section											{background:#fff;
 													-webkit-border-radius:5px;
 													-moz-border-radius:5px;
@@ -58,6 +64,7 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 													transition:background-color .3s;
 													overflow:auto;
 													padding:15px 20px 20px 20px;
+													position:relative;
 													margin:0 0 30px 0;
 													width:920px;}
 .section:hover										{background:#f8f1c2;}
@@ -68,9 +75,19 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 .section .section .c-01								{float:none;}
 .section .section .c-02								{float:none; width: 450px;}
 
+#tweet-tooltip,
+#tweet-search										{background:#e8eef2; 
+													-webkit-border-radius:5px;
+													-moz-border-radius:5px;
+													border-radius:5px;
+													display:none; 
+													font-size:1.25em; 
+													left:330px; 
+													padding:5px 10px; 
+													position:absolute;
+													top:137px;}
 
-
-/* sections */
+#tweet-tooltip .highlight							{background:yellow;}
 
 #tweet-character-count								{color:#42b23f; font-size:1.75em;}
 .negative											{color:#da3c30 !important;}
@@ -110,12 +127,12 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 
 /* notification */
 
-.notification 										{background:red; color:#fff; font-size:1em; line-height:2.5; margin:0; overflow:hidden; position:absolute; right:20px; text-align:left; top:20px; width:300px; z-index: 101;}
+.notification 										{color:#fff; font-size:1em; line-height:2.5; margin:0; overflow:hidden; position:absolute; right:20px; text-align:left; top:20px; width:300px; z-index: 101;}
 #notification-name 									{float:left; height:45px; padding:3px 10px 0 0; text-align:right; width:232px;}
 #notification-image 								{float:left; height:auto; width:58px;}
 #notification-image a 								{display:block; height:48px; padding:5px; width:48px;}
-#notification-image a:hover 						{background:#1f4c6e;r}
-#tweets 											{background:#1f4c6e; border-bottom:2px solid #e1eef6; color:#fff; display:none; line-height:1.3; padding:20px; position:absolute; right:0; top:30px; width:260px; z-index:102;}
+#notification-image a:hover 						{background:#274d69;}
+#tweets 											{background:#274d69; border-bottom:5px solid #e1eef6; color:#fff; display:none; line-height:1.3; padding:20px; position:absolute; right:20px; top:78px; width:260px; z-index:102;}
 .tweet 												{margin:0 0 5px 0;}
 
 
@@ -123,9 +140,10 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 /* responsive design css rules */
 
 @media screen and (max-width:480px) {
-body 												{background: url(../images/bg-s.png) 0 0 repeat-x #c3d9e6; font-size:.875em;}
+body 												{background:url(../images/bg-s.png) 0 0 repeat-x #c3d9e6; font-size:1em;}
 #logo												{height:50px; margin:0 0 20px 0; width:auto;}
-#container 											{padding:0 10px 40px 10px; width:300px;}
+#container 											{background:none;}
+#content 											{padding:0 10px; width:300px;}
 #related 											{margin:0 0 30px 0;}
 .section 											{margin:0 0 20px 0; padding:5px 10px 10px 10px; width:280px;}
 .section .c-01			 							{width:280px;}
@@ -133,33 +151,42 @@ body 												{background: url(../images/bg-s.png) 0 0 repeat-x #c3d9e6; font
 .section .section 		 							{width:280px;}
 .section .section .c-01 		 					{width:280px;}
 .section .section .c-02 		 					{width:280px;}
-#tweet-character-count								{font-size:1.5em;}
-textarea											{height:100px; width:270px;}
-.notification                                       {display: none}
+#section-tweet h2									{float:left;}
+#tweet-character-count								{float:left; font-size:1.75em; margin:0 0 0 20px;}
+#tweet-tooltip,
+#tweet-search										{font-size:1.25em; left:20px; top:148px; width:240px;}
+textarea											{height:150px; width:270px;}
+.notification 										{display:none; right:0; top:0;}
 													}
 
 @media screen and (min-width:480px) and (max-width:800px) {
-body 												{background: url(../images/bg.png) 0 0 repeat-x, url(../images/icon-tweet.png) 5% 142px no-repeat, url(../images/icon-tags.png) 5% 495px no-repeat, url(../images/icon-photos.png) 5% 600px no-repeat; background-color:#c3d9e6; font-size:.875em;}
-#container 											{width:400px;}
+body 												{background:url(../images/icon-twitter.png) 5% 142px no-repeat, url(../images/icon-tags.png) 5% 472px no-repeat, url(../images/icon-photos.png) 5% 577px no-repeat, url(../images/bg-texture.jpg) 0 0 repeat; background-color:#c3d9e6; font-size:.875em;}
+#content 											{width:400px;}
 .section 											{width:360px;}
 .section .c-01 										{width:360px;}
 .section .c-02 										{width:360px;}
 .section .section 		 							{width:360px;}
 .section .section .c-02 							{width:360px;}
+#section-tweet h2									{float:left;}
+#tweet-character-count								{float:left; font-size:1.75em; margin:0 0 0 20px;}
+#tweet-tooltip,
+#tweet-search										{font-size:1.25em; left:30px; top:156px;}
 textarea	 										{height:100px; width:350px;}
-.notification                                       {display: none}
+#notification-name                                  {height:41px; padding-top:7px;}
 													}
 
 @media screen and (min-width:800px) and (max-width:1024px) {
-body 												{background: url(../images/bg.png) 0 0 repeat-x, url(../images/icon-tweet.png) 5% 142px no-repeat, url(../images/icon-tags.png) 5% 440px no-repeat, url(../images/icon-photos.png) 95.5% 440px no-repeat; background-color:#c3d9e6;}
-#container 											{width:660px;}
+body 												{background:url(../images/icon-twitter.png) 5% 142px no-repeat, url(../images/icon-tags.png) 5% 490px no-repeat, url(../images/icon-photos.png) 95% 490px no-repeat, url(../images/bg-texture.jpg) 0 0 repeat; background-color:#c3d9e6;}
+#content 											{width:660px;}
 .section 											{width:620px;}
 .section .c-01 										{width:160px;}
 .section .c-02 										{width:460px;}
 .section .section 		 		 					{width:310px;}
 .section .section .c-01 		 					{width:310px;}
 .section .section .c-02 		 					{width:310px;}
-textarea											{height:100px; width:450px;}
+#tweet-tooltip,
+#tweet-search										{left:190px; top:138px;}
+textarea											{height:150px; width:450px;}
 													}
 
 

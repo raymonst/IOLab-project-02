@@ -15,14 +15,20 @@ var selection = '';
 
 var tweet = {
 
+	//----------------------------------------------------------------------------------------------------------
     init : function() {
     
     	$("#tweet-main").keyup(function() {
     		tweet.updateCount();
-    		tweet.getTagsAndImages();
     	}).mouseup(function() {
-    		tweet.getTagsAndImages();
+    		tweet.getSearchTerm();
     	});
+    	$("#tweet-search").on("click", function() {
+    		tweet.getTagsAndImages();
+	    	return false;
+    	})
+
+        document.addEventListener("touchend", tweet.getSearchTerm, false);
 
         $("#tweet-post").click(function() {
             tweet.updateStatus();
@@ -30,26 +36,64 @@ var tweet = {
         })
         
         tweet.seeTweets();
+        tweet.showTooltip();        
         
     },
+    
+	//----------------------------------------------------------------------------------------------------------
+    showTooltip : function() {
 
+	    $("#tweet-main").on("focus", function() {
+			setTimeout(function() {
+				$("#tweet-tooltip span").addClass("highlight");
+			}, 500);
+			setTimeout(function() {
+				$("#tweet-search").fadeIn(100);
+			}, 4000);
+    		tweet.getSearchTerm();
+	    });
+	    $("#tweet-main").one("focus", function() {
+			$("#tweet-tooltip").fadeIn(100);
+			setTimeout(function() {
+				$("#tweet-tooltip").fadeOut(100);
+			}, 4000);
+		});
+    },
+    
+    //----------------------------------------------------------------------------------------------------------
+    getSearchTerm: function() {
+		var range = $("#tweet-main").getSelection();
+		if (range.text && range.text != selection) {
+		    selection = range.text;
+		}
+		$("#tweet-search span").text(selection);  
+	},
+
+	//----------------------------------------------------------------------------------------------------------
     getTagsAndImages : function() {
-        var range = $("#tweet-main").getSelection();
-        if (range.text && range.text != selection) {
-            selection = range.text;
-            tweet.tags();
-            tweet.images();
-        }
+	    var range = $("#tweet-main").getSelection().text;
+	    selection = range;
+	    tweet.tags();
+	    tweet.images();
+/*
+	    if (range.text && range.text != selection) {
+	        selection = range.text;
+	        tweet.tags();
+	        tweet.images();
+	    }
+*/
     },
 
+	//----------------------------------------------------------------------------------------------------------
     seeTweets : function() {
 	    $("#notification-image").mouseenter(function() {
 			$("#tweets").show();
 	    }).mouseleave(function() {
 			$("#tweets").hide();
 	    });
-   },
+	},
 
+	//----------------------------------------------------------------------------------------------------------
     tags : function(e) {
         $("#tweet-tags .loader").fadeIn(300);
         $.ajax({
@@ -70,7 +114,7 @@ var tweet = {
     		    tweet.tagsBehavior();
     		},
     		error: function(xhr, status, error) {
-    		    $('#tweet-tags').prepend('error loading tags');
+    		    $('#tweet-tags').prepend('error loading tags ');
     		    $("#tweet-tags .loader").fadeOut(300);    		    
     		}
         });
@@ -79,6 +123,7 @@ var tweet = {
 
     },
 
+	//----------------------------------------------------------------------------------------------------------
     tagsBehavior : function() {
 	    $("#tweet-tags a").on({
 		    click: function(self) {
@@ -104,6 +149,7 @@ var tweet = {
 		});
 	},
 
+	//----------------------------------------------------------------------------------------------------------
     images : function(e) {
 	    $("#tweet-images .loader").fadeIn(300);
         $.ajax({
@@ -124,7 +170,7 @@ var tweet = {
     		    tweet.imagesBehavior();
     		},
     		error: function(xhr, status, error) {
-    		    $('#tweet-images').prepend('error loading images');
+    		    $('#tweet-images').prepend('error loading images ');
     		    $("#tweet-images .loader").fadeOut(300);
     		}
 	    });
@@ -133,6 +179,7 @@ var tweet = {
 
     },
 
+	//----------------------------------------------------------------------------------------------------------
     imagesBehavior : function() {
 	    $("#tweet-images a").on({
 		    click: function(self) {
@@ -174,6 +221,7 @@ var tweet = {
 		})
     },
 
+	//----------------------------------------------------------------------------------------------------------
     updateCount : function() {
     	characterCount = 140 - ($("#tweet-main").val().length);
 	    $("#tweet-character-count").text(characterCount);
@@ -184,6 +232,7 @@ var tweet = {
 	    }
     },
 
+	//----------------------------------------------------------------------------------------------------------
     updateStatus : function() {
         $.ajax({
     		type: "GET",

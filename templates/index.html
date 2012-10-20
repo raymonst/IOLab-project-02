@@ -10,7 +10,8 @@
 	<link rel="stylesheet" media="screen" href="../static/css/toastr-responsive.css" />
 	<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="../static/js/jquery-1.8.1.min.js"></script>
-	<script type="text/javascript" src="../static/js/jquery-fieldselection.min.js"></script>
+<!-- 	<script type="text/javascript" src="../static/js/jquery-fieldselection.min.js"></script> -->
+	<script type="text/javascript" src="../static/js/textinputs_jquery.js"></script>
 	<script type="text/javascript" src="../static/js/toastr.js"></script>
 	<script type="text/javascript" src="../static/js/script.js"></script>
 </head>
@@ -22,6 +23,7 @@
     	<div id="notification-image">
     		<a href="#"><img src="{{ user.profile_image_url }}"/></a>
      	</div>
+    </div>
      	<div id="tweets">
      	    <h3>Recent Tweets</h3>
      	
@@ -37,56 +39,58 @@
      	    	<div class="tweet">{{ t.text }}</div>
      	    {% endfor %}
      	</div>
-   </div>
 
 	<div id="container">
-		<img src="../static/images/logo.png" alt="metatweet" id="logo">
-        <h1>metatweet</h1>
-
-    	<div class="section" id="section-tweet">
-    	    <div class="c-01">
-	        	<h2>Your Tweet</h2>
-	        	<span id="tweet-character-count">140</span>
-    	    </div>
-    	    <div class="c-02">
-	        	<textarea id="tweet-main"></textarea>
-    	    </div>
-    	</div>
-    	<a href="#" target="_blank" id="tweet-post">POST</a>
-    	<div class="section" id="related">
-
-    	    <div class="section">
-    	    	<div class="c-01">
-	        		<h2>Related Tags</h2>
-    	    	</div>
-    	    	<div class="c-02">
-	        		<div id="tweet-tags">
-	        			<div class="loader"></div>
-	        			<a href="#" class="item">test</a>
-	        			<a href="#" class="item">test</a>
-	        			<a href="#" class="item">test</a>
-	        			<a href="#" class="item">test</a>
-	        			<a href="#" class="item">test</a>
-	        			<a href="#" class="item">test</a>
-	        			<a href="#" class="item">test</a>
-	        			<a href="#" class="item">test</a>
-	        		</div>
-    	    	</div>
-    	    </div>
-
-    	    <div class="section">
-
-    	    	<div class="c-01">
-	        		<h2>Related Images</h2>
-    	    	</div>
-    	    	<div class="c-02">
-	        		<div id="tweet-images">
-	        			<div class="loader"></div>
-	        		</div>
-    	    	</div>
-    	    </div>
-    	</div>
-
+		<div id="content">
+			<img src="../static/images/logo.png" alt="metatweet" id="logo">
+        	<h1>metatweet</h1>
+			
+    		<div class="section" id="section-tweet">
+    			<div id="tweet-tooltip"><span>Highlight a word/phrase</span> to set your search term</div>
+    			<a href="#" id="tweet-search">Search tags &amp; images related to: <span></span></a>
+    		    <div class="c-01">
+	    	    	<h2>Your Tweet</h2>
+	    	    	<span id="tweet-character-count">140</span>
+    		    </div>
+    		    <div class="c-02">
+	    	    	<textarea id="tweet-main" placeholder="Type in your tweet&hellip;"></textarea>
+    		    </div>
+    		</div>
+    		<a href="#" target="_blank" id="tweet-post">POST</a>
+    		<div class="section" id="related">
+			
+    		    <div class="section">
+    		    	<div class="c-01">
+	    	    		<h2>Related Tags</h2>
+    		    	</div>
+    		    	<div class="c-02">
+	    	    		<div id="tweet-tags">
+	    	    			<div class="loader"></div>
+	    	    			<a href="#" class="item">test</a>
+	    	    			<a href="#" class="item">test</a>
+	    	    			<a href="#" class="item">test</a>
+	    	    			<a href="#" class="item">test</a>
+	    	    			<a href="#" class="item">test</a>
+	    	    			<a href="#" class="item">test</a>
+	    	    			<a href="#" class="item">test</a>
+	    	    			<a href="#" class="item">test</a>
+	    	    		</div>
+    		    	</div>
+    		    </div>
+			
+    		    <div class="section">
+			
+    		    	<div class="c-01">
+	    	    		<h2>Related Images</h2>
+    		    	</div>
+    		    	<div class="c-02">
+	    	    		<div id="tweet-images">
+	    	    			<div class="loader"></div>
+	    	    		</div>
+    		    	</div>
+    		    </div>
+    		</div>
+		</div>
 	</div>
 
 </body>
