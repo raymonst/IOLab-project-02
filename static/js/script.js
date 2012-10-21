@@ -9,6 +9,7 @@ var delay = (function() {
 })();
 
 
+
 //--------------------------------------------------------------------------------------------------------------
 
 var selection = '';
@@ -156,41 +157,43 @@ var tweet = {
     	return false;
 
     },
+    
     //----------------------------------------------------------------------------------------------------------
     location : function(e) {
-             navigator.geolocation.getCurrentPosition(function (position) {
-                 $.ajax({
-                    type: "GET",
-                    url: "/hashtags?location=" + encodeURIComponent(position['coords'].latitude + "," + position['coords'].longitude + ",2mi"),
-                    contentType: "application/json",
-                    success: function(data) {
-                        $('#location-form').hide();
-                        $("#location-tags").empty();
-                        $.each(data, function() {
-                            $('#location-tags').prepend('<a href="' + this[0] + '" class="item">' + this[0] + ' (' + this[1] + ')</a>');
-                        });
-                        $("#location-tags .loader").hide();
-                        $("#location-tags .item").each(function(i) {
-                            var self = $(this);
-                            setTimeout(function() {
-                                self.fadeIn(100).css("display","block");
+	    navigator.geolocation.getCurrentPosition(function (position) {
+        	$.ajax({
+            	type: "GET",
+                url: "/hashtags?location=" + encodeURIComponent(position['coords'].latitude + "," + position['coords'].longitude + ",2mi"),
+                contentType: "application/json",
+                success: function(data) {
+                	$('#location-form').hide();
+                    $("#location-tags").empty();
+                    $.each(data, function() {
+	                	$('#location-tags').prepend('<a href="' + this[0] + '" class="item">' + this[0] + ' (' + this[1] + ')</a>');
+	                });
+                    $("#location-tags .loader").hide();
+                    $("#location-tags .item").each(function(i) {
+                    	var self = $(this);
+                        setTimeout(function() {
+                        	self.fadeIn(100).css("display","block");
                         }, 100 * i);
-                        });
+                    });
                     tweet.tagsBehavior();
-                    },
-                    error: function(xhr, status, error) {
-                        $('#location-tags').text('error loading tags');
-                        $("#location-tags .loader").fadeOut(300);
-                    }
-                });
-             }, function (error) {
-                 $('#location-tags').text(error.message);
+                },
+                error: function(xhr, status, error) {
+                	$('#location-tags').text('error loading tags');
+                	$("#location-tags .loader").fadeOut(300);
+                }
              });
+         }, function (error) {
+         	$('#location-tags').text(error.message);
+         });
      },
-	//----------------------------------------------------------------------------------------------------------
-    tagsBehavior : function() {
-	    $(".tab-body.hashtag a.item").bind("click", 
-            function() {
+     
+     //----------------------------------------------------------------------------------------------------------
+     tagsBehavior : function() {
+	     $(".tab-body.hashtag a.item").bind("click", 
+         	function() {
 		    	self = $(this);
 		    	tag = '#' + self.attr('href');
 		    	if (!(self.hasClass('added'))) {
@@ -242,34 +245,34 @@ var tweet = {
     	return false;
 
     },
+    
     //----------------------------------------------------------------------------------------------------------
     userImages : function(e) {
-        $("#flickr-images .loader").fadeIn(300);
-
-            $.ajax({
-            type: "GET",
-            url: "/photos?user=" + flickrUser,
-            contentType: "application/json",
-            success: function(data) {
-                $("#flickr-images").empty();
-                $.each(data, function() {
-                   $('#flickr-images').prepend('<a href="' + this.full + '" class="item"><img src="' + this.thumb + '"></a>');
-                });
-                $("#flickr-images .loader").hide();
-                $("#flickr-user-form").hide();
-                $("#flickr-images .item").each(function(i) {
-                    var self = $(this);
-                    setTimeout(function() {
-                        self.fadeIn(100);
-                    }, 100 * i);
-                 });
-                 tweet.imagesBehavior();
-                },
-                error: function(xhr, status, error) {
-                    $('#tweet-images').prepend('error loading images ');
-                    $("#tweet-images .loader").fadeOut(300);
-                }
-            });
+	    $("#flickr-images .loader").fadeIn(300);
+	    $.ajax({
+	    	type: "GET",
+	    	url: "/photos?user=" + flickrUser,
+	    	contentType: "application/json",
+	    	success: function(data) {
+	        $("#flickr-images").empty();
+	        $.each(data, function() {
+	        	$('#flickr-images').prepend('<a href="' + this.full + '" class="item"><img src="' + this.thumb + '"></a>');
+	        });
+	        $("#flickr-images .loader").hide();
+	        $("#flickr-user-form").hide();
+	        $("#flickr-images .item").each(function(i) {
+	        	var self = $(this);
+	            setTimeout(function() {
+	            	self.fadeIn(100);
+	            }, 100 * i);
+	        });
+	        tweet.imagesBehavior();
+	        },
+	        error: function(xhr, status, error) {
+	            $('#tweet-images').prepend('error loading images ');
+	            $("#tweet-images .loader").fadeOut(300);
+	        }
+	    });
     },
 
 	//----------------------------------------------------------------------------------------------------------
