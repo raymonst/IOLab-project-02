@@ -15,8 +15,12 @@ def get_hashtags_from_search(results):
     of times each tag occurs
     """
     hashtags = []
+    
     for result in results:
-        hashtags += re.findall(r"#(\w+)", result.text)
+        try:
+            hashtags += re.findall(r"#(\w+)", result.text)
+        except(AttributeError):
+            hashtags += re.findall(r"#(\w+)", result['text'])
     hashtag_counts = Counter(hashtags).most_common(15)
     # Reverse list because items will be prepended in ascending order
     hashtag_counts.reverse()

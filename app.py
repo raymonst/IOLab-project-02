@@ -123,16 +123,27 @@ def get_hashtags():
     api = tweepy.API(auth)
 
     query = request.args.get('q')
+    latlng = request.args.get('location')
+
     num_results = request.args.get('num_results', TWITTER_NUM_RESULTS)
+
+        
     results = []
-    for i in xrange(1, TWITTER_PAGES_TO_POLL + 1):
-        results += api.search(
-            query,
-            lang="en",
-            result_type='mixed',
-            rpp=num_results,
-            page=i,
-        )
+    if (query):
+        for i in xrange(1, TWITTER_PAGES_TO_POLL + 1):
+            results += api.search(
+                query,
+                lang="en",
+                result_type='mixed',
+                rpp=num_results,
+                page=i,
+            )
+    else:           #tweepy doesn't allow you to search without a query...but twitter does
+        for i in xrange(1, TWITTER_PAGES_TO_POLL + 1):
+            results += call_api('http://search.twitter.com/search.json?',
+                params = { 'geocode' : '37.781157,-122.398720,1mi', 'rpp':num_results, 'page':i } 
+                )['results']
+
     hashtags = get_hashtags_from_search(results)
     return Response(
         response=hashtags,

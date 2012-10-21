@@ -57,10 +57,21 @@
 	    	    		<h2>Related Tags</h2>
     		    	</div>
     		    	<div class="c-02">
-	    	    		<div id="tweet-tags">
-	    	    			<div class="loader"></div>
-	    	    		</div>
+	    	    		<div class="tab active" data-target="#keyword-tab">Tags by Keyword</div>
+                        <div class="tab" data-target="#location-tab">Tags Around Me</div>
+                            <div id="keyword-tab" class="tab-body hashtag">
+                                <div class="loader"></div> 
+                                <div id="tweet-tags">
+                                </div>
+                            </div>
+                            <div id="location-tab" class="tab-body hashtag">
+                                <div class="loader"></div> 
+                                    <div id="location-form">Where are you? <a href="#" id="location-update" class="update">Locate Me</a></div>
+                                    <div id="location-tags">
+                                    </div>
+                            </div>
     		    	</div>
+                    
     		    </div>
 
     		    <div class="section">
@@ -70,19 +81,19 @@
     		    	</div>
                    
     		    	<div class="c-02">
-                        <div class="tab active" data-target="#tweet-tab">Public Images</div>
+                        <div class="tab active" data-target="#public-tab">Public Images</div>
                         <div class="tab" data-target="#flickr-tab">My Images</div>
-                            <div id="tweet-tab" class="tab-body">
+                            <div id="public-tab" class="tab-body image">
                                 <div class="loader"></div> 
                                 <div id="tweet-images">
                                 </div>
                             </div>
-                            <div id="flickr-tab" class="tab-body">
+                            <div id="flickr-tab" class="tab-body image">
                                 <div class="loader"></div> 
                                 <div id="flickr-images">
                                 </div>
                                 <div id="flickr-user-form">
-                                    <label>Flickr User Name</label><input type="text" id="flickr-user" value="{{ user.screen_name }}"/><a href="#" id="flickr-update">Update</a>
+                                    <label>Flickr User Name</label><input type="text" id="flickr-user" value="{{ user.screen_name }}"/><a href="#" id="flickr-update" class="update">Update</a>
                                 </div>
                             </div>
     		    	</div>

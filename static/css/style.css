@@ -94,6 +94,7 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 	
 #related											{margin-bottom:60px;}
 
+
 #tweet-tags a										{display:block;}
 #tweet-tags a:hover									{background:#1f5ccc; color:#fff;}
 #tweet-tags .item									{display:none;}
@@ -101,6 +102,9 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 #tweet-images	                                                               {background:#fff; height:auto;}
 #tweet-images a										{display:block;}
 #tweet-images .item									{display:none; float:left; height:75px; margin:0 10px 10px 0;width:75px;}
+
+#location-tab                                                                    {display:none;}
+#flickr-tab                                                                      {display:none;}
 
 #tweet-post											{background:#1f5ccc; 
 													-webkit-border-radius:5px;
@@ -125,7 +129,7 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 .loader												{background:url(../images/ajax-loader.gif) 0 0 no-repeat; display:none; height:16px; width:16px;}
 
 
-/* photos */
+/* tabs */
 .tab												{background-color: #eee;
                                                     border:1px solid #eee; 
                                                     border-bottom:0px;
@@ -136,13 +140,13 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
                                                     display:none; 
                                                     margin-right:2px; padding:5px; 
                                                     } 
-.tab-body                                                                            {background-color:#fff; overflow:auto; padding:15px 0px 15px 15px; display:none;}
+.tab-body                                                                            {background-color:#fff; overflow:auto; padding:15px 0px 15px 15px; }
 .active                                                                              {background-color: #fff;}
-#flickr-update                                                                  {background:#1f5ccc; 
+.update                                                                              {background:#1f5ccc; 
 													-webkit-border-radius:3px;
 													-moz-border-radius:3px;
 													border-radius:3px;
-													color:#fff; 
+													color:#fff !important; 
 													display:inline-block;
 													padding:2px 5px;
 													-webkit-transition:color .3s, background-color .3s;
@@ -150,7 +154,7 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 													-o-transition:color .3s, background-color .3s;
 													-ms-transition:color .3s, background-color .3s;
                                                     }
-#flickr-update:hover							    {background:#f4aa0b; color:#333;}
+.update:hover							    {background:#f4aa0b; color:#333;}
 /* notification */
 
 .notification 										{color:#fff; font-size:1em; line-height:2.5; margin:0; overflow:hidden; position:absolute; right:20px; text-align:left; top:20px; width:300px; z-index: 101;}

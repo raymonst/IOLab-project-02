@@ -33,15 +33,19 @@ var tweet = {
 	    	return false;
     	});
         
+        $("#location-update").on("click", function() {
+    		tweet.getLocation();
+	    	return false;
+    	});
         
-        $('#flickr-update').click(function() {
+        $('#flickr-update').on("click", function() {
             tweet.getUserImages(); 
             return false;
         });
         
         $('.tab').click(function() {
-           $('.tab-body').hide();
-           $('.tab').removeClass('active');
+           $(this).siblings('.tab-body').hide();
+           $(this).siblings('.tab').removeClass('active');
            $(this).addClass('active');
            $($(this).attr('data-target')).show();
         });
@@ -86,6 +90,7 @@ var tweet = {
 
 	//----------------------------------------------------------------------------------------------------------
     getTagsAndImages : function() {
+        $(".tab").css('display','inline-block');
         // Only fetch if selected text has changed and isn't empty
         var selectedText = $("#tweet-search span").text();
 	    if (selectedText && selectedText != selection) {
@@ -103,6 +108,13 @@ var tweet = {
         if (currUser !== "" && currUser !== flickrUser) {
             flickrUser = currUser;
             tweet.userImages();
+        }
+    },
+    
+    //----------------------------------------------------------------------------------------------------------
+     getLocation : function() {
+        if (navigator.geolocation) { // check that the functionality exists first
+            tweet.location();
         }
     },
 
@@ -141,15 +153,44 @@ var tweet = {
     		    $("#tweet-tags .loader").fadeOut(300);
     		}
         });
-    	$("#tweet-tags").show();
     	return false;
 
     },
-
+    //----------------------------------------------------------------------------------------------------------
+    location : function(e) {
+             navigator.geolocation.getCurrentPosition(function (position) {
+                 $.ajax({
+                    type: "GET",
+                    url: "/hashtags?location=" + encodeURIComponent(position['coords'].latitude + "," + position['coords'].longitude + ",2mi"),
+                    contentType: "application/json",
+                    success: function(data) {
+                        $('#location-form').hide();
+                        $("#location-tags").empty();
+                        $.each(data, function() {
+                            $('#location-tags').prepend('<a href="' + this[0] + '" class="item">' + this[0] + ' (' + this[1] + ')</a>');
+                        });
+                        $("#location-tags .loader").hide();
+                        $("#location-tags .item").each(function(i) {
+                            var self = $(this);
+                            setTimeout(function() {
+                                self.fadeIn(100).css("display","block");
+                        }, 100 * i);
+                        });
+                    tweet.tagsBehavior();
+                    },
+                    error: function(xhr, status, error) {
+                        $('#location-tags').text('error loading tags');
+                        $("#location-tags .loader").fadeOut(300);
+                    }
+                });
+             }, function (error) {
+                 $('#location-tags').text(error.message);
+             });
+     },
 	//----------------------------------------------------------------------------------------------------------
     tagsBehavior : function() {
-	    $("#tweet-tags a").on({
-		    click: function(self) {
+	    $(".tab-body.hashtag a.item").bind("click", 
+            function() {
 		    	self = $(this);
 		    	tag = '#' + self.attr('href');
 		    	if (!(self.hasClass('added'))) {
@@ -168,14 +209,12 @@ var tweet = {
 				$("#tweet-main").val(newValue);
 				tweet.updateCount();
 			    return false;
-		    }
 		});
 	},
 
 	//----------------------------------------------------------------------------------------------------------
     images : function(e) {
-        $(".tab").css('display','inline-block');
-        $("#tweet-tab").show();
+
 	    $("#tweet-images .loader").fadeIn(300);
         $.ajax({
     		type: "GET",
@@ -205,7 +244,6 @@ var tweet = {
     },
     //----------------------------------------------------------------------------------------------------------
     userImages : function(e) {
-        $(".tab").css('display','inline-block');
         $("#flickr-images .loader").fadeIn(300);
 
             $.ajax({
@@ -236,7 +274,7 @@ var tweet = {
 
 	//----------------------------------------------------------------------------------------------------------
     imagesBehavior : function() {
-	    $(".tab-body a").on({
+	    $(".tab-body.image a.item").on({
 		    click: function(self) {
 		    	self = $(this);
 		    	link = self.attr("href");
