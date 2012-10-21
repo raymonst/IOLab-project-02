@@ -62,7 +62,6 @@ var tweet = {
     },
     //----------------------------------------------------------------------------------------------------------
     showTooltip : function() {
-<<<<<<< HEAD
         $("#tweet-tooltip").fadeIn(100);
         setTimeout(function() {
             $("#tweet-tooltip span").addClass("highlight");
@@ -72,24 +71,6 @@ var tweet = {
     showSearchtip: function() {
          $("#tweet-tooltip").fadeOut(100);
          $("#tweet-search").fadeIn(100);
-=======
-
-	    $("#tweet-main").on("focus", function() {
-			setTimeout(function() {
-				$("#tweet-tooltip span").addClass("highlight");
-			}, 500);
-			setTimeout(function() {
-				$("#tweet-search").fadeIn(100);
-			}, 3500);
-    		tweet.getSearchTerm();
-	    });
-	    $("#tweet-main").one("focus", function() {
-			$("#tweet-tooltip").fadeIn(100);
-			setTimeout(function() {
-				$("#tweet-tooltip").fadeOut(100);
-			}, 3500);
-		});
->>>>>>> fixed alignment issues (avatar & tags)
     },
     //----------------------------------------------------------------------------------------------------------
     getSearchTerm: function() {
