@@ -95,16 +95,18 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 #related											{margin-bottom:60px;}
 
 
-#tweet-tags a										{display:block;}
-#tweet-tags a:hover									{background:#1f5ccc; color:#fff;}
+#tweet-tags a,
+#location-tags a									{display:block;}
+#tweet-tags a:hover,
+#location-tags a:hover								{background:#1f5ccc; color:#fff;}
 #tweet-tags .item									{display:none;}
 
-#tweet-images	                                                               {background:#fff; height:auto;}
+#tweet-images	                                    {background:#fff; height:auto;}
 #tweet-images a										{display:block;}
 #tweet-images .item									{display:none; float:left; height:75px; margin:0 10px 10px 0;width:75px;}
 
-#location-tab                                                                    {display:none;}
-#flickr-tab                                                                      {display:none;}
+#location-tab                                       {display:none;}
+#flickr-tab                                         {display:none;}
 
 #tweet-post											{background:#1f5ccc; 
 													-webkit-border-radius:5px;
@@ -129,6 +131,7 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 .loader												{background:url(../images/ajax-loader.gif) 0 0 no-repeat; display:none; height:16px; width:16px;}
 
 
+
 /* tabs */
 .tab												{background-color: #eee;
                                                     border:1px solid #eee; 
@@ -140,9 +143,10 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
                                                     display:none; 
                                                     margin-right:2px; padding:5px; 
                                                     } 
-.tab-body                                                                            {background-color:#fff; overflow:auto; padding:15px 0px 15px 15px; }
-.active                                                                              {background-color: #fff;}
-.update                                                                              {background:#1f5ccc; 
+.tab-body                                           {background-color:#fff; overflow:auto; padding:15px 0 15px 15px;}
+#keyword-tab                                        {padding:15px;}
+.active                                             {background-color: #fff;}
+.update                                             {background:#1f5ccc; 
 													-webkit-border-radius:3px;
 													-moz-border-radius:3px;
 													border-radius:3px;
@@ -154,11 +158,14 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
 													-o-transition:color .3s, background-color .3s;
 													-ms-transition:color .3s, background-color .3s;
                                                     }
-.update:hover							    {background:#f4aa0b; color:#333;}
+.update:hover									    {background:#f4aa0b; color:#333;}
+
+
+
 /* notification */
 
 .notification 										{color:#fff; font-size:1em; line-height:2.5; margin:0; overflow:hidden; position:absolute; right:20px; text-align:left; top:20px; width:300px; z-index: 101;}
-#notification-name 									{float:left; height:45px; padding:3px 10px 0 0; text-align:right; width:232px;}
+#notification-name 									{float:left; height:40px; padding:8px 10px 0 0; text-align:right; width:232px;}
 #notification-image 								{float:left; height:auto; width:58px;}
 #notification-image a 								{display:block; height:48px; padding:5px; width:48px;}
 #notification-image a:hover 						{background:#274d69;}
@@ -201,9 +208,9 @@ body 												{background:url(../images/icon-twitter.png) 5% 142px no-repeat,
 #section-tweet h2									{float:left;}
 #tweet-character-count								{float:left; font-size:1.75em; margin:0 0 0 20px;}
 #tweet-tooltip,
-#tweet-search										{font-size:1.25em; left:30px; top:156px;}
+#tweet-search										{font-size:1.25em; left:30px; top:128px;}
 textarea	 										{height:100px; width:350px;}
-#notification-name                                  {height:41px; padding-top:7px;}
+#notification-name                                  {height:38px; padding-top:10px;}
 													}
 
 @media screen and (min-width:800px) and (max-width:1024px) {
