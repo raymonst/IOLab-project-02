@@ -144,7 +144,8 @@ textarea											{border:1px solid #eee; color:#666; height:150px; margin-top:
                                                     margin-right:2px; padding:5px; 
                                                     } 
 .tab-body                                           {background-color:#fff; overflow:auto; padding:15px 0 15px 15px;}
-#keyword-tab                                        {padding:15px;}
+#keyword-tab,
+#location-tab										{padding:15px;}
 .active                                             {background-color: #fff;}
 .update                                             {background:#1f5ccc; 
 													-webkit-border-radius:3px;
