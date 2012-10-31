@@ -148,7 +148,7 @@ var tweet = {
             $(".section-tags .loader").fadeIn(300);
             $.ajax({
                 type: "GET",
-                url: "/hashtags?location=" + encodeURIComponent(position['coords'].latitude + "," + position['coords'].longitude + ",2mi"),
+                url: "/hashtags?location=" + position['coords'].latitude + "," + position['coords'].longitude,
                 contentType: "application/json",
                 success: function(data) {
                     $('#location-form').hide();
